@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shikayat - Civic Grievance & Ward Redressal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Shikayat</h1>
+      <p class="tagline">Report problems in your ward and track their resolution</p>
+    </div>
+    <nav>
+      <button class="tab active" data-view="submit">Report an Issue</button>
+      <button class="tab" data-view="track">Track Status</button>
+      <button class="tab" data-view="officer">Ward Officer</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 1. CITIZEN: SUBMIT -->
+    <section id="submit" class="view active">
+      <h2>Report a civic issue</h2>
+      <p class="intro">Fill in the details below. Your ward officer will be notified.</p>
+      <form id="grievanceForm">
+        <div class="grid">
+          <label>Your name <input type="text" id="name" required></label>
+          <label>Phone number <input type="tel" id="phone" pattern="[0-9]{10}" placeholder="10 digits" required></label>
+          <label>Category
+            <select id="category" required></select>
+          </label>
+          <label>Ward number
+            <select id="ward" required></select>
+          </label>
+        </div>
+        <label>Description
+          <textarea id="description" rows="5" minlength="15" maxlength="300" required
+            placeholder="Describe the problem and the exact location"></textarea>
+          <small id="counter">0 / 300</small>
+        </label>
+        <button type="submit" class="primary">Submit grievance</button>
+      </form>
+      <p id="submitMsg" class="msg" role="status"></p>
+    </section>
+
+    <!-- 2. CITIZEN: TRACK -->
+    <section id="track" class="view">
+      <h2>Track your grievance</h2>
+      <div class="row">
+        <input type="text" id="trackId" placeholder="Enter ID, e.g. CGR-1001">
+        <button id="trackBtn" class="primary">Track</button>
+      </div>
+      <div id="trackResult"></div>
+    </section>
+
+    <!-- 3. WARD OFFICER -->
+    <section id="officer" class="view">
+      <div id="loginBox">
+        <h2>Ward officer login</h2>
+        <div class="row">
+          <select id="officerWard" aria-label="Ward"></select>
+          <input type="password" id="officerPass" placeholder="Password">
+          <button id="loginBtn" class="primary">Log in</button>
+        </div>
+        <p id="loginMsg" class="msg"></p>
+      </div>
+
+      <div id="officerPanel" hidden>
+        <div class="panel-head">
+          <h2 id="panelTitle"></h2>
+          <button id="logoutBtn">Log out</button>
+        </div>
+        <div class="stats" id="stats"></div>
+        <div class="row">
+          <select id="statusFilter" aria-label="Filter by status">
+            <option value="All">All statuses</option>
+            <option>Pending</option><option>In Progress</option><option>Resolved</option>
+          </select>
+          <select id="categoryFilter" aria-label="Filter by category"></select>
+        </div>
+        <div id="list"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
